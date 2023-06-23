@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Muli:300,400,700,900');
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    background: #f1f3f9;
+    font-family: 'Muli', Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 200;
+  color: white;
+}
+
+p , hr {
+  color: white;
+}

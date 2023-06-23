@@ -6,7 +6,13 @@
     "paths": {
       "@shared/*": [
         "src/app/shared/*"
-      ]
+      ],
+      "@service/*": [
+        "src/app/gifs/services/*"
+      ],
+      "@interfaces/*": [
+        "src/app/gifs/interfaces/*"
+      ],
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
