@@ -8,7 +8,7 @@ import { IGif } from '@interfaces/gifs.interfaces';
 export class CardComponent implements OnInit {
   
   @Input()
-  public gif! : IGif
+  public gif! : IGif;
   
   ngOnInit(): void {
     if( !this.gif ) throw new Error('Gif property iis required.');
