@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { GifsService } from '@service/gifs.service';
 
 @Component({
-  selector: 'shared-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+    selector: 'shared-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.css'],
+    standalone: false
 })
 export class SidebarComponent{
 

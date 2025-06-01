@@ -3,8 +3,8 @@ import { GifsService } from '@service/gifs.service';
 
 
 @Component({
-  selector: 'gifs-search-box',
-  template: `
+    selector: 'gifs-search-box',
+    template: `
     <div class="form-container">
       <div class="form-tab">
         
@@ -22,7 +22,8 @@ import { GifsService } from '@service/gifs.service';
       </div>
     </div>
   `,
-  styleUrls: ['./search-box.component.css']
+    styleUrls: ['./search-box.component.css'],
+    standalone: false
 })
 export class SearchBoxComponent {
 

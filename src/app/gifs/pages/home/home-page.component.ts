@@ -4,8 +4,9 @@ import { GifsService } from '@service/gifs.service';
 
 
 @Component({
-  selector: 'gifs-home-page',
-  templateUrl: './home-page.component.html'
+    selector: 'gifs-home-page',
+    templateUrl: './home-page.component.html',
+    standalone: false
 })
 export class HomePageComponent {
 
