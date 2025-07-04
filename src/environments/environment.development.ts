@@ -1,8 +1,10 @@
 export const environment = {
-  production: false,
+  production: true,
   companyName: 'GifsApp',
   companyName2: 'App',
   companySlogan: 'Expresa lo que sientes, en un solo GIF.',
 
-  debugMode: true,  // Habilitar logs de depuración
+  // ApiKeys
+  giphyApiKey: 'Amh0EG0oGLBN4b5Fs5ytesYGx5SdgGNK',
+  giphyUrl: 'https://api.giphy.com/v1'
 };
