@@ -1,0 +1,13 @@
+<div class="p-4">
+  <h3 class="text-3xl font-bold text-gray-800 mb-4">
+    Mostrando: <span class="text-blue-600">{{ query() }}</span>
+  </h3>
+
+  <!-- Separador -->
+  <hr class="border-t-2 border-blue-500 mb-6" />
+
+  <section class="py-5">
+    <gif-list [gifs]="gifsByKey()" />
+  </section>
+
+</div>
