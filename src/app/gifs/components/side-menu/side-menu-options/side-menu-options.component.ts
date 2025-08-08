@@ -33,6 +33,10 @@ export class SideMenuOptionsComponent {
       subLabel: 'Buscar Gifs',
       route: '/dashboard/search'
     }
-  ]
+  ];
+
+  removeSearchHistory(key: string) {
+    this.gifService.removeSearchHistory(key);
+  }
 
 }

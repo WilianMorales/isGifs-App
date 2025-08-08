@@ -17,14 +17,23 @@ const loadFromLocalStorage = () => {
 
 @Injectable({ providedIn: 'root' })
 export class GifsService {
-
   private http = inject(HttpClient);
 
   trendingGifs = signal<Gif[]>([]);
-  trendingGifsLoading = signal(true);
+  trendingGifsLoading = signal(false);
+  private trendingGifsPage = signal(0);
+
+  trendingGifGroup = computed<Gif[][]>(() => {
+    const groups = [];
+    for (let i = 0; i < this.trendingGifs().length; i += 3) {
+      groups.push(this.trendingGifs().slice(i, i + 3));
+    }
+
+    return groups;
+  })
 
   searchHistory = signal<Record<string, Gif[]>>(loadFromLocalStorage());
-  searchHistoryKeys = computed(() => Object.keys(this.searchHistory()));
+  searchHistoryKeys = computed(() => Object.keys(this.searchHistory()).reverse());
 
   constructor() {
     this.loadTrendingGifs();
@@ -36,24 +45,33 @@ export class GifsService {
   });
 
   loadTrendingGifs(): void {
+
+    if (this.trendingGifsLoading()) return;
+
+    this.trendingGifsLoading.set(true);
+
     this.http.get<GiphyResponse>(`${environment.giphyUrl}/gifs/trending`, {
       params: {
         api_key: environment.giphyApiKey,
-        limit: "20",
-        rating: "g"
+        limit: "24",
+        offset: this.trendingGifsPage() * 24,
+        rating: "gr"
       }
     }).subscribe((resp) => {
       const gifs = GifMapper.mapGiphyItemsToGifArray(resp.data);
-      this.trendingGifs.set(gifs);
+      this.trendingGifs.update(currentGifs => [...currentGifs, ...gifs]);
+      this.trendingGifsPage.update(page => page + 1);
       this.trendingGifsLoading.set(false);
     })
   }
 
   searchGifs(query: string): Observable<Gif[]> {
+    const normalizedQuery = query.toLowerCase();
+
     return this.http.get<GiphyResponse>(`${environment.giphyUrl}/gifs/search`, {
       params: {
         api_key: environment.giphyApiKey,
-        limit: "20",
+        limit: "24",
         q: query,
       }
     }).pipe(
@@ -62,12 +80,24 @@ export class GifsService {
 
       // Historial
       tap(items => {
-        this.searchHistory.update(history => ({
-          ...history,
-          [query.toLowerCase()]: items,
-        }))
+        this.searchHistory.update(history => {
+          const newHistory = { ...history };
+
+          if (!newHistory[normalizedQuery]) {
+            const keys = Object.keys(newHistory);
+
+            if (keys.length >= 7) {
+              const oldestKey = keys[0]; // orden de inserción
+              delete newHistory[oldestKey];
+            }
+          }
+
+          newHistory[normalizedQuery] = items;
+
+        return newHistory;
+        });
       })
-    )
+    );
   }
 
   getHistoryGifs(query: string): Gif[] {
@@ -78,6 +108,16 @@ export class GifsService {
     return Object.prototype.hasOwnProperty.call(history, key)
       ? history[key]
       : [];
+  }
+
+  removeSearchHistory(query: string): void {
+    const normalizedQuery = query.toLowerCase();
+
+    this.searchHistory.update(history => {
+      const newHistory = { ...history };
+      delete newHistory[normalizedQuery];
+      return newHistory;
+    });
   }
 
 }

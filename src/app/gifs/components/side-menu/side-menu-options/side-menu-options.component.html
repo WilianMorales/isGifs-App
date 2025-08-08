@@ -1,4 +1,4 @@
-<div id="nav" class="w-full px-6">
+<div id="nav" class="w-full px-6 pb-3">
 
   @for(item of menuOptions; track item.route) {
     <a
@@ -16,18 +16,25 @@
   }
 
   @for (key of gifService.searchHistoryKeys(); track key) {
-    <a
-      [routerLink]="['/dashboard/history', key]"
-      routerLinkActive="bg-blue-800"
-      class="w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 transition ease-linear duration-150">
-      <div>
-        <i class="fa-solid fa-clock-rotate-left"></i>
-      </div>
-      <div class="flex flex-col">
-        <span class="text-lg font-bold leading-5 text-white">
-          {{key}}
-        </span>
-      </div>
-    </a>
+    <div class="flex">
+      <a
+        [routerLink]="['/dashboard/history', key]"
+        routerLinkActive="bg-blue-800"
+        class="w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 transition ease-linear duration-150">
+          <div>
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-lg font-bold leading-5 text-white">
+              {{key}}
+            </span>
+          </div>
+      </a>
+      <button
+          (click)="removeSearchHistory(key)"
+          class="text-red-500 hover:text-red-700 ml-2">
+          <i class="fa-solid fa-xmark"></i>
+       </button>
+    </div>
   }
 </div>
