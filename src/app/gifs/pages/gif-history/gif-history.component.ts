@@ -27,7 +27,7 @@ export default class GifHistoryComponent {
 
   constructor(){
 
-    // Check if the query exists in the history. If not, redirect to the search page
+    // Comprueba si la consulta existe en el historial. De no ser así, redirige a la página de búsqueda.
     effect(() => {
       const gifs = this.gifService.getHistoryGifs(this.query());
       if (gifs.length === 0) {

@@ -1,16 +1,22 @@
-<h2 class="text-2xl font-bold mt-5">Buscar Gifs</h2>
-<h3 class="text-sm text-gray-500">Buscar gifs por nombre, descripción o tags</h3>
+<h2 class="text-2xl font-bold mt-5 text-center md:text-left">¡Encuentra el gif perfecto!</h2>
+<h3 class="text-sm pt-1 text-gray-500 text-center md:text-left">Busca por nombre, emoción o lo que se te ocurra</h3>
 
 <section class="flex flex-col gap-4">
   <input
     type="text"
-    placeholder="Buscar gifs..."
-    class="mt-3 border border-gray-300 rounded p-2 w-full"
+    placeholder="Busca algo divertido..."
+    class="mt-3 border border-gray-300 rounded p-2 w-full placeholder-gray-400"
     id="search"
     (keyup.enter)="onSearch(txtSearch.value)"
     #txtSearch/>
 </section>
 
-<section class="py-5">
-  <gif-list [gifs]="gifs()"/>
-</section>
+@if (!hasSearched()) {
+  <section class="py-10 text-center text-gray-500">
+    <p class="text-lg">Todavía no has buscado ningún gif. ¡Intenta con algo divertido!</p>
+  </section>
+} @else {
+  <section class="py-5">
+    <gif-list [gifs]="gifs()"/>
+  </section>
+}
