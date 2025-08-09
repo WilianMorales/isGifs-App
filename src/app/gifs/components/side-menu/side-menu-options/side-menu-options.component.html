@@ -21,26 +21,35 @@
     </h3>
   </div>
 
-  @for (key of gifService.searchHistoryKeys(); track key) {
-    <div class="flex">
-      <a
-        [routerLink]="['/dashboard/history', key]"
-        routerLinkActive="bg-blue-800"
-        class="w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 transition ease-linear duration-150">
-          <div>
-            <i class="fa-solid fa-clock-rotate-left"></i>
-          </div>
-          <div class="flex flex-col">
-            <span class="text-lg font-bold leading-5 text-white">
-              {{key}}
-            </span>
-          </div>
-      </a>
-      <button
-          (click)="removeSearchHistory(key)"
-          class="text-red-500 hover:text-red-700 ml-2">
-          <i class="fa-solid fa-xmark"></i>
-       </button>
+  @if (gifService.searchHistoryKeys().length === 0) {
+    <div class="flex items-center justify-center py-2">
+      <span class="text-white/50 text-sm">
+        No hay historial de búsqueda.
+      </span>
     </div>
+
+  } @else{
+    @for (key of gifService.searchHistoryKeys(); track key) {
+      <div class="flex">
+        <a
+          [routerLink]="['/dashboard/history', key]"
+          routerLinkActive="bg-blue-800"
+          class="w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 transition ease-linear duration-150">
+            <div>
+              <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-lg font-bold leading-5 text-white">
+                {{key}}
+              </span>
+            </div>
+        </a>
+        <button
+            (click)="removeSearchHistory(key)"
+            class="text-red-500 hover:text-red-700 ml-2">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    }
   }
 </div>
