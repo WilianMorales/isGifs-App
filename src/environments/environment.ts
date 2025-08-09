@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  companyName: 'Gifs',
+  companyName: 'IsGifs',
   companyName2: 'App',
   companySlogan: 'Expresa lo que sientes, en un solo GIF.',
 
